@@ -49,9 +49,9 @@ class GameplayController < ApplicationController
                     1412819501000,
                     {
                         'locationE6' => {
-                            'latE6' => 37.132838 * 1E6,
-                            'lngE6' => -95.785582 * 1E6
-                        },#37.132839,-95.785583
+                            'latE6' => 40.42511 * 1E6,
+                            'lngE6' => -86.914969 * 1E6
+                        },#40.42511,-86.914969
                         'resourceWithLevels' => {
                             'resourceType' => nil
                         },
@@ -77,7 +77,8 @@ class GameplayController < ApplicationController
                             ]
                         },
                         'captured' => {
-                            'capturingPlayerId' => '1648d89413394f9f9b1889c4c4b44a47'
+                            'capturingPlayerId' => 'bf9e67417ca942cd818577e39db5bdaf',
+                            'nickname' => 'lilpimpollo'
                         },
                         'resonatorArray' => {
                             'resonators' => [
