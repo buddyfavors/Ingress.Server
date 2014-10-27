@@ -3,4 +3,10 @@
   <data-source source="LOCAL" name="Rails Ingress.Server: development" uuid="87f3d4d4-a2d7-49e0-a207-e28b1763965c">
     <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
+  <data-source source="LOCAL" name="Rails Ingress.Server: test" uuid="cce95758-157b-4117-a0ad-97b7954eaf61">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails Ingress.Server: production" uuid="0d400deb-a34d-494c-bc4e-b7a0a7ec41c1">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
 </component>
