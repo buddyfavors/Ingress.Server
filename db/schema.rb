@@ -11,9 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20141031030331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "portals", force: true do |t|
+    t.string   "name",       limit: 20
+    t.string   "imageUrl",   limit: 50
+    t.integer  "latitude"
+    t.integer  "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
