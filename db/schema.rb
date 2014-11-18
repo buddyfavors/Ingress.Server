@@ -17,10 +17,11 @@ ActiveRecord::Schema.define(version: 20141031030331) do
   enable_extension "plpgsql"
 
   create_table "portals", force: true do |t|
-    t.string   "name",       limit: 20
-    t.string   "imageUrl",   limit: 50
+    t.string   "name",          limit: 50
+    t.string   "imageUrl"
     t.integer  "latitude"
     t.integer  "longitude"
+    t.string   "googlePlaceId", limit: 50
     t.datetime "created_at"
     t.datetime "updated_at"
   end
