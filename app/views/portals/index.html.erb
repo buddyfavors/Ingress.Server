@@ -3,7 +3,6 @@
   <thead>
   <tr>
     <th>Name</th>
-    <th>Image</th>
     <th>Latitude</th>
     <th>Longitude</th>
     <th>Google Place Id</th>
@@ -13,8 +12,7 @@
   <tbody>
   <% @portals.each do |portal| %>
       <tr>
-        <td><%= portal.name %></td>
-        <td><%= portal.imageUrl %></td>
+        <td><%= link_to portal.name, portal.imageUrl %></td>
         <td><%= portal.latitude %></td>
         <td><%= portal.longitude %></td>
         <td><%= portal.googlePlaceId %></td>
