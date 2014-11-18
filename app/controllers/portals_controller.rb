@@ -69,6 +69,6 @@ class PortalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def portal_params
-      params.require(:portal).permit(:name, :imageUrl, :latitude, :longitude)
+      params.require(:portal).permit(:name, :imageUrl, :latitude, :longitude, :googlePlaceId)
     end
 end
