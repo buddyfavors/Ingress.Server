@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+  resources :portals
   get 'handshake' => 'handshake#index'
   match 'rpc/playerUndecorated/:action', to: 'player_undecorated#:action', via: [:get, :post]
   match 'rpc/gameplay/:action', to: 'gameplay#:action', via: [:get, :post]

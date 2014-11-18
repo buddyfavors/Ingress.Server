@@ -1,0 +1,35 @@
+<%= form_for(@portal) do |f| %>
+    <% if @portal.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@portal.errors.count, "error") %> prohibited this portal from being saved:</h2>
+          <ul>
+            <% @portal.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <div>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :imageUrl %><br>
+      <%= f.text_field :imageUrl %>
+    </div>
+    <div>
+      <%= f.label :latitude %><br>
+      <%= f.text_field :latitude %>
+    </div>
+    <div>
+      <%= f.label :longitude %><br>
+      <%= f.text_field :longitude %>
+    </div>
+    <div>
+      <%= f.label :googlePlaceId %><br>
+      <%= f.text_field :googlePlaceId %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

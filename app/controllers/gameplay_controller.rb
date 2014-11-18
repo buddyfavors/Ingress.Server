@@ -39,12 +39,34 @@ class GameplayController < ApplicationController
   end
 
   def getObjectsInCells
+    entities = [];
+
+    # Parse the location.
     location = params['params']['location'];
     location = location.split(',')
     location.each_index do |index|
       location[index] = Integer(location[index]) / 1E6
     end
-    client = GooglePlaces::Client.new('AIzaSyA9eiiu-ZcQPlRcYiz-XFIt5C2ZfHvaieM')
+
+    # Find the nearest portals first.
+    nearestPortals = Portal.findNearestPortals(location[0], location[1])
+
+    # Check if there are any portals
+    if nearestPortals.any?
+      nearestPortals.each do |nearestPortal|
+        entities.push(Portal.fromPortal(nearestPortal))
+      end
+
+      render json: {
+          'gameBasket' => {
+              'gameEntities' => entities
+          }
+      }
+      return
+    end
+
+    # Find the portals from Google Places API.
+    client = GooglePlaces::Client.new('AIzaSyB9LpJo5WMXorrPYRjHBwEtyN4ddTwQqrQ')
     spots = client.spots(location[0], location[1], :radius => 200, :types => [
         'church',
         'cemetery',
@@ -66,62 +88,19 @@ class GameplayController < ApplicationController
         'university',
         'zoo'
     ])
-    entities = [];
 
-    spots.each do |spot|
-      entity = [
-          # guid
-          spot.id,
-          # timestamp
-          1412819501000,
-          {
-              'locationE6' => {
-                  'latE6' => spot.lat * 1E6,
-                  'lngE6' => spot.lng * 1E6
-              },
-              'resourceWithLevels' => {
-                  'resourceType' => nil
-              },
-              'modResource' => {
-                  'resourceType' => nil
-              },
-              'controllingTeam' => {
-                  'team' => ''
-              },
-              'imageByUrl' => {
-                  'imageUrl' => spot.icon
-              },
-              'portalV2' => {
-                  'descriptiveText' => {
-                      'TITLE' => spot.name,
-                      'ADDRESS' => spot.vicinity
-                  },
-                  'linkedModArray' => [
-                      nil,
-                      nil,
-                      nil,
-                      nil
-                  ]
-              },
-              'captured' => {
-                  'capturingPlayerId' => '40e2a146907e493fa1902705c46eba78',
-                  'nickname' => 'uncaptured'
-              },
-              'resonatorArray' => {
-                  'resonators' => [
-                      nil,
-                      nil,
-                      nil,
-                      nil,
-                      nil,
-                      nil,
-                      nil,
-                      nil
-                  ]
-              }
+    # Check if there are any places
+    if spots.any?
+      spots.each do |spot|
+        entities.push(Portal.fromGooglePlace(spot))
+      end
+
+      render json: {
+          'gameBasket' => {
+              'gameEntities' => entities
           }
-      ]
-      entities.push(entity)
+      }
+      return
     end
 
     render json: {
