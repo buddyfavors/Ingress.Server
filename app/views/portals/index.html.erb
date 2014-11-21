@@ -2,16 +2,18 @@
 <table>
   <thead>
   <tr>
+    <th>Id</th>
     <th>Name</th>
     <th>Latitude</th>
     <th>Longitude</th>
     <th>Google Place Id</th>
-    <th colspan="3"></th>
+    <th colspan="3">Options</th>
   </tr>
   </thead>
   <tbody>
   <% @portals.each do |portal| %>
       <tr>
+        <td><%= portal.id %></td>
         <td><%= link_to portal.name, portal.imageUrl %></td>
         <td><%= portal.latitude %></td>
         <td><%= portal.longitude %></td>
