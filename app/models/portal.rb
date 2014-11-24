@@ -1,3 +1,5 @@
+require 'dtos/portal_dto'
+
 class Portal < ActiveRecord::Base
   def self.findNearestPortals(playerLatitude, playerLongitude)
     # Distance algorithm: http://andrew.hedges.name/experiments/haversine
@@ -31,9 +33,13 @@ class Portal < ActiveRecord::Base
   end
 
   def self.fromPortal(portal)
+    return Portal.fromPortalDTO(PortalDTO.new(portal))
+  end
+
+  def self.fromPortalDTO(portal)
     return [
         # guid
-        portal.googlePlaceId,
+        portal.id,
         # timestamp
         1412819501000,
         {
@@ -86,7 +92,9 @@ class Portal < ActiveRecord::Base
   end
 
   def self.fromGooglePlace(spot)
-    if !Portal.find_by_googlePlaceId(spot.place_id)
+    portal = Portal.find_by_googlePlaceId(spot.place_id)
+
+    if !portal
       portal = Portal.new
       portal.name = spot.name.truncate(50)
       portal.latitude = spot.lat * 1E6
@@ -96,57 +104,6 @@ class Portal < ActiveRecord::Base
       portal.save
     end
 
-    return [
-        # guid
-        spot.place_id,
-        # timestamp
-        1412819501000,
-        {
-            'locationE6' => {
-                'latE6' => spot.lat * 1E6,
-                'lngE6' => spot.lng * 1E6
-            },
-            'resourceWithLevels' => {
-                'resourceType' => nil
-            },
-            'modResource' => {
-                'resourceType' => nil
-            },
-            'controllingTeam' => {
-                'team' => ''
-            },
-            'imageByUrl' => {
-                'imageUrl' => spot.icon
-            },
-            'portalV2' => {
-                'descriptiveText' => {
-                    'TITLE' => spot.name,
-                    'ADDRESS' => nil # TODO: Not tested, might throw an error.
-                },
-                'linkedModArray' => [
-                    nil,
-                    nil,
-                    nil,
-                    nil
-                ]
-            },
-            'captured' => {
-                'capturingPlayerId' => '40e2a146907e493fa1902705c46eba78',
-                'nickname' => 'uncaptured'
-            },
-            'resonatorArray' => {
-                'resonators' => [
-                    nil,
-                    nil,
-                    nil,
-                    nil,
-                    nil,
-                    nil,
-                    nil,
-                    nil
-                ]
-            }
-        }
-    ]
+    return Portal.fromPortal(portal)
   end
 end
