@@ -66,7 +66,7 @@ class GameplayController < ApplicationController
     end
 
     # Find the portals from Google Places API.
-    client = GooglePlaces::Client.new('AIzaSyB9LpJo5WMXorrPYRjHBwEtyN4ddTwQqrQ')
+    client = GooglePlaces::Client.new('AIzaSyBi_jv5ZL0lfr5QlnAwmMrXfXxpj1GgvLo')
     spots = client.spots(location[0], location[1], :radius => 200, :types => [
         'church',
         'cemetery',
@@ -94,13 +94,6 @@ class GameplayController < ApplicationController
       spots.each do |spot|
         entities.push(Portal.fromGooglePlace(spot))
       end
-
-      render json: {
-          'gameBasket' => {
-              'gameEntities' => entities
-          }
-      }
-      return
     end
 
     render json: {
