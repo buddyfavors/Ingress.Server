@@ -14,7 +14,7 @@ class PortalsController < ApplicationController
 
   # GET /portals/new
   def new
-    @portal = Portal.new
+    @portal = Portal.new()
   end
 
   # GET /portals/1/edit
